@@ -29,3 +29,6 @@ bin/
 *__debug_*
 .DS_Store
 *.pyc
+
+# poetry distribution directory
+dist/
