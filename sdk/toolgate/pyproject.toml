@@ -1,0 +1,28 @@
+[tool.poetry]
+name = "toolgate"
+version = "0.1.1"
+description = "Toolgate SDK"
+authors = ["Oleksii Dzhulai <topics-trine-0i@icloud.com>"]
+readme = "README.md"
+packages = [{include = "toolgate"}]
+
+[tool.poetry.dependencies]
+python = "^3.12"
+langchain = "^0.2.6"
+langchain-community = "^0.2.6"
+langchain-openai = "0.1.19"
+nats-py = "2.8.0"
+protobuf = "5.27.3"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "8.3.2"
+aiounittest = "1.4.0"
+streamlit = "1.37.1"
+pylint = "^3.2.6"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[settings]
+virtualenvs.in-project = true

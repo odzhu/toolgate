@@ -1,0 +1,37 @@
+{
+  "$schema": "https://raw.githubusercontent.com/jetify-com/devbox/0.12.0/.schema/devbox.schema.json",
+  "packages": [
+    "etcd@3.5.14",
+    "poetry@1.8.3",
+    "python@3.12.4",
+    "nats-server@2.10.17",
+    "natscli@0.1.4",
+    "protobuf@25.3"
+  ],
+  "shell": {
+    "init_hook": [
+      "unset VENV_DIR VIRTUAL_ENV",
+      "alias service='devbox run service'",
+      "alias consumer='devbox run consumer'",
+      "alias proto='devbox run proto'"
+    ],
+    "scripts": {
+      "init": [
+        "go mod tidy",
+        "cd $DEVBOX_PROJECT_ROOT/sdk/toolgate && poetry install",
+      ],
+      "service": [
+        "cd $DEVBOX_PROJECT_ROOT/sdk/toolgate",
+        "poetry run -- tests/langchain/service.py",
+      ],
+      "consumer": [
+        "cd $DEVBOX_PROJECT_ROOT/sdk/toolgate",
+        "poetry run -- streamlit run --browser.gatherUsageStats=False tests/langchain/consumer.py",
+      ],
+      "proto": [
+        "cd $DEVBOX_PROJECT_ROOT/sdk/toolgate",
+        "poetry run -- protoc --proto_path=toolgate --python_out=pyi_out:toolgate proto/tool.proto",
+      ]
+    }
+  }
+}

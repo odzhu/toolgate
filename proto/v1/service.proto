@@ -1,0 +1,53 @@
+syntax = "proto3";
+
+enum Handler {
+  GET = 0;
+  RUN = 1;
+}
+
+enum Puppet {
+  LANGCHAIN_TOOL = 0;
+}
+
+message PuppetRequest {
+    oneof request {
+        LangChainTool lc_tool = 1;
+    }
+}
+
+message PuppetResponse {
+    oneof response {
+        LangChainTool lc_tool = 1;
+    }
+}
+
+message ServiceMeta {
+    string subject = 1;
+    Handler handler = 2;
+    Puppet puppet = 3;
+}
+
+message ServiceRequest {
+    ServiceMeta meta = 1;
+    oneof request {
+        PuppetRequest puppet_request = 2;
+    }
+}
+
+message ServiceResponse {
+    ServiceMeta meta = 1;
+    oneof response {
+        PuppetResponse puppet_response = 2;
+        string error = 3;
+    }
+}
+
+message LangChainTool {
+    optional string name = 1;
+    optional string description = 2;
+    optional string args_schema = 3;
+    optional string result = 4;
+    optional string error = 5;
+    optional string query = 6;
+}
+
